@@ -36,7 +36,7 @@ export function fmtTime(): string {
 function logPositionsAll(user: string, curr: PositionSnapshot): void {
   const prefix = `${fmtTime()} | INIT | ${user}`;
   const entries = Object.entries(curr).map(
-    ([asset, c]) => `  ${c.slug ?? asset.slice(0, 12) + "…"} ${c.outcome ?? "?"} size ${c.size} @ ${c.curPrice}`
+    ([asset, c]) => `  ${c.slug ?? asset.slice(0, 12) + "…"} ${c.outcome ?? "?"} size ${Number(c.size).toFixed(2)} @ ${c.curPrice}`
   );
   console.log(entries.length ? `${prefix}\n${entries.join("\n")}` : `${prefix} | (none)`);
 }
@@ -52,7 +52,7 @@ function logPositionChanges(user: string, curr: PositionSnapshot, prev: Position
       const sign = delta > 0 ? "+" : "";
       const slug = c.slug ?? asset.slice(0, 12) + "…";
       const outcome = c.outcome ?? "?";
-      lines.push(`  ${slug} ${outcome} ${sign}${delta} @ ${c.curPrice}`);
+      lines.push(`  ${slug} ${outcome} ${sign}${Number(delta).toFixed(2)} size ${c.size} @ ${c.curPrice}`);
     }
   }
   for (const asset of Object.keys(prev)) {
@@ -60,7 +60,7 @@ function logPositionChanges(user: string, curr: PositionSnapshot, prev: Position
       const p = prev[asset];
       const slug = p?.slug ?? asset.slice(0, 12) + "…";
       const outcome = p?.outcome ?? "?";
-      lines.push(`  ${slug} ${outcome} -${p.size} @ ${p.curPrice}`);
+      lines.push(`  ${slug} ${outcome} -${Number(p.size).toFixed(2)} size 0 @ ${p.curPrice}`);
     }
   }
   console.log(lines.length ? `${prefix}\n${lines.join("\n")}` : `${prefix} | (no changes)`);
