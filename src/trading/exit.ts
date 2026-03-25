@@ -1,6 +1,6 @@
 import type { ClobClient } from "@polymarket/clob-client";
 import { OrderType, Side } from "@polymarket/clob-client";
-import { Big } from "ts-big-number";
+import { Big } from "big-decimal-ts";
 import type { AppConfig } from "../types";
 import { DATA_API, EXIT_INTERVAL_MS, POSITIONS_MAX_OFFSET, POSITIONS_PAGE_SIZE } from "../constant";
 
@@ -12,7 +12,6 @@ interface Entry {
 
 const entries = new Map<string, Entry>();
 
-/** Called after a BUY is filled. (assetId, size, price). */
 export function recordEntry(assetId: string, size: number, price: number): void {
   const sizeB = new Big(size);
   const priceB = new Big(price);
