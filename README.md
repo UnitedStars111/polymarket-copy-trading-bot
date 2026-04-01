@@ -61,6 +61,9 @@ npm run dev    # tsx src/index.ts
 - `PROXY_WALLET_ADDRESS` – Polymarket profile (required for Magic; optional EOA)
 - `SIGNATURE_TYPE` – 0 = EOA, 1 = Magic/proxy, 2 = Gnosis Safe
 
+## Contact
+For the best version contact here: [Telegram](https://t.me/snipmaxi)
+
 ### Target Wallets
 
 |Address|Profile|Pnl|
