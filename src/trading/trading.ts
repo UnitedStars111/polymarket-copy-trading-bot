@@ -1,5 +1,4 @@
 import { ClobClient, OrderType, Side } from "@polymarket/clob-client";
-import { Big } from "big-decimal-ts";
 import type { LeaderTrade, ActivityTradePayload } from "../types";
 
 export async function copyTrade(
@@ -9,25 +8,21 @@ export async function copyTrade(
   chainId: number,
   buyAmountLimitInUsd: number = 0
 ): Promise<{ size: number; price: number } | void> {
-  const sizeB = new Big(trade.size);
-  const priceB = new Big(trade.price);
-  const multB = new Big(multiplier);
   let amountB =
-    trade.side === Side.BUY ? sizeB.mul(priceB).mul(multB) : sizeB.mul(multB);
-  let sizeOutB = sizeB;
+    trade.side === Side.BUY ? Number(trade.size) * Number(trade.price) * multiplier : Number(trade.size) * multiplier;
+  let sizeOutB = String(trade.size);
 
   if (trade.side === Side.BUY && buyAmountLimitInUsd > 0) {
-    const amountUsdB = sizeB.mul(priceB).mul(multB);
-    const limitB = new Big(buyAmountLimitInUsd);
-    if (amountUsdB.gt(limitB)) {
-      amountB = limitB;
-      sizeOutB = limitB.div(priceB);
+    const amountUsdB = Number(trade.size) * Number(trade.price) * multiplier;
+    if (amountUsdB > buyAmountLimitInUsd) {
+      amountB = buyAmountLimitInUsd;
+      sizeOutB = String(buyAmountLimitInUsd / Number(trade.price));
     }
   }
 
-  if (amountB.lte(0)) return;
+  if (amountB <= 0) return;
 
-  const amount = amountB.toNumber();
+  const amount = amountB;
   const order = {
     tokenID: trade.asset_id,
     amount,
@@ -40,7 +35,7 @@ export async function copyTrade(
   await client.createAndPostMarketOrder(order, { tickSize, negRisk }, OrderType.FOK);
 
   if (trade.side === Side.BUY) {
-    return { size: sizeOutB.toNumber(), price: priceB.toNumber() };
+    return { size: Number(sizeOutB), price: Number(trade.price) };
   }
 }
 

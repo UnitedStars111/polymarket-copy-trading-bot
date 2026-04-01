@@ -1,27 +1,24 @@
 import type { ClobClient } from "@polymarket/clob-client";
 import { OrderType, Side } from "@polymarket/clob-client";
-import { Big } from "big-decimal-ts";
 import type { AppConfig } from "../types";
 import { DATA_API, EXIT_INTERVAL_MS, POSITIONS_MAX_OFFSET, POSITIONS_PAGE_SIZE } from "../constant";
 
 interface Entry {
-  entryPrice: Big;
-  size: Big;
-  maxPrice: Big;
+  entryPrice: number;
+  size: number;
+  maxPrice: number;
 }
 
 const entries = new Map<string, Entry>();
 
 export function recordEntry(assetId: string, size: number, price: number): void {
-  const sizeB = new Big(size);
-  const priceB = new Big(price);
   const cur = entries.get(assetId);
   if (cur) {
-    const newSize = cur.size.add(sizeB);
-    cur.entryPrice = cur.entryPrice.mul(cur.size).add(priceB.mul(sizeB)).div(newSize);
+    const newSize = cur.size + size;
+    cur.entryPrice = (cur.entryPrice * cur.size + price * size) / newSize;
     cur.size = newSize;
   } else {
-    entries.set(assetId, { entryPrice: priceB, size: sizeB, maxPrice: priceB });
+    entries.set(assetId, { entryPrice: price, size: size, maxPrice: price });
   }
 }
 
@@ -50,19 +47,13 @@ export function runExitLoop(client: ClobClient, config: AppConfig): void {
       }
       for (const p of positions) {
         const entry = entries.get(p.asset);
-        if (!entry || entry.size.lte(0)) continue;
-        const curPriceB = new Big(p.curPrice);
-        const posSizeB = new Big(p.size);
-        const sizeB = entry.size.lte(posSizeB) ? entry.size : posSizeB;
-        if (sizeB.lte(0)) continue;
-        const pnlPctB = curPriceB.minus(entry.entryPrice).div(entry.entryPrice).mul(100);
-        const pnlPct = pnlPctB.toNumber();
+        if (!entry || entry.size <= 0) continue;
+        const sizeB = entry.size <= p.size ? entry.size : p.size;
+        if (sizeB <= 0) continue;
+        const pnlPct = (p.curPrice - entry.entryPrice) / entry.entryPrice * 100;
         const e = entries.get(p.asset)!;
-        if (curPriceB.gt(e.maxPrice)) e.maxPrice = curPriceB;
-        const trailPctB = e.maxPrice.gt(0)
-          ? e.maxPrice.minus(curPriceB).div(e.maxPrice).mul(100)
-          : new Big(0);
-        const trailPct = trailPctB.toNumber();
+        if (p.curPrice > e.maxPrice) e.maxPrice = p.curPrice;
+        const trailPct = e.maxPrice > 0 ? (e.maxPrice - p.curPrice) / e.maxPrice * 100 : 0;
 
         let shouldSell = false;
         if (takeProfit > 0 && pnlPct >= takeProfit) shouldSell = true;
@@ -70,7 +61,7 @@ export function runExitLoop(client: ClobClient, config: AppConfig): void {
         if (trailingStop > 0 && trailPct >= trailingStop) shouldSell = true;
         if (!shouldSell) continue;
 
-        const amount = sizeB.mul(curPriceB).toNumber();
+        const amount = sizeB * p.curPrice;
         const tickSize = await client.getTickSize(p.asset);
         const negRisk = await client.getNegRisk(p.asset);
         await client.createAndPostMarketOrder(
@@ -78,8 +69,8 @@ export function runExitLoop(client: ClobClient, config: AppConfig): void {
           { tickSize, negRisk },
           OrderType.FOK
         );
-        e.size = e.size.minus(sizeB);
-        if (e.size.lte(0)) entries.delete(p.asset);
+        e.size = e.size - sizeB;
+        if (e.size <= 0) entries.delete(p.asset);
       }
     } catch (e) {
       console.error("exit check", e?.message ?? e);
