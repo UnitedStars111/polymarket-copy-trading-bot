@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Celsius to Fahrenheit Converter</title>
+</head>
+<body>
+    <div class="image">
+        <img src="Thermometer.gif" alt="Art by amis0129" width=50px" float="left" />
+    </div>
+    <h2>Temperature Converter</h2>
+    <p>
+        <label>Celsius:</label>
+        <input id="inputCelsius" type="number" placeholder="type number here"
+               oninput="temperatureConverter(this.value)"
+               onchange="temperatureConverter(this.value)">
+    </p>
+    <p>
+        <label>Fahrenheit:</label>
+        <input id="outputFahrenheit"></input>
+    </p>
+    <button id="Convert" href="button">Convert</button>
+    </p>
+</body>
+</html>
+<script>
+    document.getElementById("convert").onclick = temperatureConverter;
+    function temperatureConverter() {
+        var celsius = document.getElementById("inputCelsius").value;
+        celsius = (parseFloat(celsius) * 9 / 5) + 32;
+        document.getElementById("outputFahrenheit").value = parseFloat(celsius).toFixed(1);
+    }
+</script>
+<style>
+    .button {
+        background-color: black;
+        border: 1px solid black;
+        text-decoration: none;
+        color: white;
+        padding: 3px;
+        font-family: Verdana, sans-serif;
+        border-radius: 8px;
+        transition-duration: 0.4s;
+    }
+
+        .button:hover {
+            background-color: ghostwhite;
+            color: black;
+        }
+
+    .image {
+        margin-left: 5px;
+        margin-right: 5px;
+        float: left;
+        border: 0px solid black;
+    }
+</style>
